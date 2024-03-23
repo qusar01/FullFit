@@ -1,5 +1,6 @@
 package com.qusar.FullFit.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "workouts")
 public class Workout {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workout_id_seq")
     private Long id;
 
     private LocalDate date;
@@ -25,7 +30,7 @@ public class Workout {
 
     private Double caloriesBurned;
 
-    private List<Exercise> exerciseList;
-
-    private Long user_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

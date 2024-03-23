@@ -1,20 +1,25 @@
 package com.qusar.FullFit.domain;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "challenges")
 public class Challenge {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "challenge_id_seq")
     private Long id;
 
     private String name;
@@ -23,9 +28,12 @@ public class Challenge {
 
     private LocalDate end_date;
 
-    private String desc;
+    private String description;
 
-    private List<User> participants;
+    @ManyToMany(mappedBy = "user_challenges", cascade = CascadeType.ALL)
+    private ArrayList<User> participants;
 
-    private Long winner;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User winner;
 }

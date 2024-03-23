@@ -1,6 +1,7 @@
 package com.qusar.FullFit.domain;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "exercises")
 public class Exercise {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exercise_id_seq")
     private Long id;
 
     private String name;
@@ -22,5 +27,7 @@ public class Exercise {
 
     private Double weight;
 
-    private Long workout_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "workout_id")
+    private Workout workout;
 }
