@@ -1,4 +1,4 @@
-package com.qusar.FullFit.repository;
+package com.qusar.FullFit.repositories;
 
 
 import com.qusar.FullFit.domain.*;
@@ -19,13 +19,13 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static Workout createTestWorkout() {
+    public static Workout createTestWorkout(User user) {
         return Workout.builder()
                 .date(null)
                 .duration(null)
                 .type("test")
                 .caloriesBurned(1.0)
-                .user(createTestUser())
+                .user(user)
                 .build();
     }
 
@@ -35,7 +35,6 @@ public class TestDataUtil {
                 .sets(1)
                 .reps(1)
                 .weight(1.0)
-                .workout(createTestWorkout())
                 .build();
     }
 
